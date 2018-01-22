@@ -1,6 +1,6 @@
 
 $fa=1;
-$fn=20;
+$fn=80;
 
 module rotate_handle(long, larg, attach, grip) {
     cylinder(h=long,d=larg);
@@ -45,19 +45,19 @@ module rotate_piece_2(base_size, main_diam, shaft_diam) {
 
 module picot_male() {
 //    translate([3,-15,0]) rotate([0,90,0]) union() {
-//        cylinder(h=6,d=6, center=true);   
-//        cylinder(h=10,d=3, center=true);   
+//        cylinder(h=6,d=6, center=true);
+//        cylinder(h=10,d=3, center=true);
 //    }
-        cylinder(h=6,d=6, center=true);   
-        cylinder(h=10,d=3, center=true);   
-    
+        cylinder(h=6,d=6, center=true);
+        cylinder(h=10,d=3, center=true);
+
     }
 
 module picot_female (x, y) {
     translate([x,y,-3]) difference () {
-    cylinder(h=6,d=6, center=true);   
-    cylinder(h=6,d=3, center=true);   
-    }      
+    cylinder(h=6,d=6, center=true);
+    cylinder(h=6,d=3, center=true);
+    }
     }
 
 module rotate_floor(base_size, base_height, corner_size) {
@@ -66,16 +66,16 @@ module rotate_floor(base_size, base_height, corner_size) {
     picot_female(110,110);
     picot_female(110,10);
     picot_female(10,110);
-   
+
     triangle_points =[[0,0],[corner_size,0],[0,corner_size]];
     triangle_paths =[[0,1,2]];
     translate([base_size,0,base_height]) rotate([0,-90,0]) linear_extrude(base_size) polygon(triangle_points,triangle_paths,10);
     translate([base_size,base_size,base_height]) rotate([90,-90,0]) linear_extrude(base_size) polygon(triangle_points,triangle_paths,10);
     translate([0,0,base_height]) rotate([-90,-90,0]) linear_extrude(base_size) polygon(triangle_points,triangle_paths,10);
     translate([0,base_size,base_height]) rotate([180,-90,0]) linear_extrude(base_size) polygon(triangle_points,triangle_paths,10);
-    
+
     cube([base_size,base_size,base_height], center=false);
-    
+
 //    difference() {
 //    // base
 //    cube([base_size,base_size,base_height], center=false);
@@ -85,18 +85,20 @@ module rotate_floor(base_size, base_height, corner_size) {
 }
 
 //rotate_piece();
+difference () {
 
+union () {
 difference () {
     translate([0,0,6]) rotate_floor(120,2,4);
     union () {
-        
+
         translate([60,60,0]) rotate([0,90,0]) cylinder(h=118,d=21, center=true);
     }}
 
 translate([60,60,0]) rotate([0,90,0])  {
-    
+
     difference() {
-    
+
                     cylinder(h=120,d=24, center=true);
     union() {
                     cylinder(h=120,d=21, center=true);
@@ -107,24 +109,31 @@ translate([60,60,0]) rotate([0,90,0]) {
     difference() {
     translate([0,0,50]) cylinder(h=2,d=21, center=true);
     cylinder(h=120,d=10, center=true);
-}  
+}
 difference () {
                 translate([0,0,-50]) cylinder(h=2,d=21, center=true);
                 cylinder(h=120,d=10, center=true);
             }
- }   
+ }
 
  // jupe
 translate([0,120,0]) rotate([0,0,-90]) cube([120,3,6]);
 cube([120,3,6]);
 translate([120,0,0]) rotate([0,0,90])  cube([120,3,6]);
- rotate([0,0,-90]) cube([120,3,6]);
+ translate([0,117,0]) cube([120,3,6]);
+}
+union () {
+translate([0,0,-40]) cube([130,130,40]);
+translate([120,60,0]) rotate([0,90,0]) cylinder(h=60,d=10, center=true);
+
+}
+}
 
 module attempt_2 () {
 difference () {
 
     union () {
-        
+
         union() {
             // supports
             difference() {
@@ -136,7 +145,7 @@ difference () {
                 cylinder(h=120,d=10, center=true);
             }
             //cylinder(h=120,d=10, center=true);
-            
+
             // tunnel
             difference() {
                 difference() {
@@ -145,7 +154,7 @@ difference () {
                 }
             // ball opening
             cube([25,25,25], center=true);
-            
+
         }
         }
 
@@ -154,34 +163,34 @@ difference () {
             rotate([0,90,0]) cube([120,120,4], center=true);
             cylinder(h=120,d=21, center=true);
                 }
-    }       
-            
-translate([15,0,0]) rotate([0,90,0]) cube([140,140,30], center=true);            
-}        
-        
+    }
+
+translate([15,0,0]) rotate([0,90,0]) cube([140,140,30], center=true);
+}
+
 // picots
 
 // males
 translate([3,-15,0]) rotate([0,90,0]) union() {
-    cylinder(h=6,d=6, center=true);   
-    cylinder(h=10,d=3, center=true);   
+    cylinder(h=6,d=6, center=true);
+    cylinder(h=10,d=3, center=true);
 }
 // femelle
 translate([3,15,0]) rotate([0,90,0])  difference () {
-cylinder(h=6,d=6, center=true);   
-cylinder(h=6,d=3, center=true);   
+cylinder(h=6,d=6, center=true);
+cylinder(h=6,d=3, center=true);
 }
 
-translate([3,50,50]) rotate([0,90,0]) cylinder(h=6,d=6, center=true);   
-translate([3,50,-50]) rotate([0,90,0]) cylinder(h=6,d=6, center=true);   
-translate([3,-50,50]) rotate([0,90,0]) cylinder(h=6,d=6, center=true);   
-translate([3,-50,-50]) rotate([0,90,0]) cylinder(h=6,d=6, center=true);   
+translate([3,50,50]) rotate([0,90,0]) cylinder(h=6,d=6, center=true);
+translate([3,50,-50]) rotate([0,90,0]) cylinder(h=6,d=6, center=true);
+translate([3,-50,50]) rotate([0,90,0]) cylinder(h=6,d=6, center=true);
+translate([3,-50,-50]) rotate([0,90,0]) cylinder(h=6,d=6, center=true);
 
 translate([3,15,0]) rotate([0,90,0])  difference () {
-cylinder(h=6,d=6, center=true);   
-cylinder(h=6,d=3, center=true);   
+cylinder(h=6,d=6, center=true);
+cylinder(h=6,d=3, center=true);
 }
-        
+
 
 }
 //rotate_piece_2(120, 20, 6);
@@ -200,11 +209,9 @@ module rotate_floor_tube(base_size, main_diam) {
 
     difference() {
 cylinder(h=base_size,d=main_diam+3, center=true);
-translate([0,0,2]) cylinder(h=base_size,d=main_diam+1, center=true);   
+translate([0,0,2]) cylinder(h=base_size,d=main_diam+1, center=true);
 }
 
 }
 //translate([25,60,-0]) rotate([0,90,0])  rotate_floor_tube(50, 20);
 //translate([95,60,-0]) rotate([0,-90,0])  rotate_floor_tube(50, 20);
-
-
