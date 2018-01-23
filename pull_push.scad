@@ -75,16 +75,50 @@ module rotate_handle(long, larg, grip) {
 }
 
 /* rotate_handle(25, 25, 3); */
-
 difference () {
-cube([120,120,20], center=true);
-cube([120,118,18], center=true);
+  // base as box
+  difference () {
+    cube([120,120,20], center=true);
+    cube([120,118,18], center=true);
+  }
+  // holes in base, right and left
+  // TODO have to be z levelled
+  union() {
+    translate([15,30,11]) cylinder(h=20, d=13, center=true);
+    translate([15,-30,-11]) cylinder(h=20, d=13, center=true);
+  }
+}
+
+module picot_male(x, y) {
+    translate([x,y,-6]) {
+        cylinder(h=6,d=6);
+        translate([0,0,-4]) cylinder(h=4,d=3);
+      }
+    }
+translate([0,0,5]) {
+picot_male(10,10);
+picot_male(110,10);
+picot_male(10,110);
+picot_male(110,110);
 }
 
 // this makes the 'flower' wheel
-translate([20,0,0]) {
+translate([15,0,0]) {
+  // axis
+  cylinder(h=18, d=5, center=true);
   difference() {
-  rotate_handle(10, 100, 5);
-  translate([30,0,0]) cylinder(h=10, d=13, center=true);
+    rotate_handle(10, 110, 5);
+    translate([0,30,0]) cylinder(h=10, d=13, center=true);
 }
 }
+
+module tube(height, outer, inner) {
+  difference() {
+    cylinder(h=height, d=outer, center=true);
+    cylinder(h=height, d=inner, center=true);
+  }
+}
+
+// axis hinge for flower axis
+translate([15,0,8]) tube(4,8,5);
+translate([15,0,-8]) tube(4,8,5);
