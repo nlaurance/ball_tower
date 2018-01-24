@@ -1,6 +1,8 @@
 $fa=1;
 $fn=40;
 
+use <handles.scad>
+
 module shaft(width, length) {
   offset = width / 2;
   difference() {
@@ -15,64 +17,6 @@ module shaft(width, length) {
 }
 
 /* shaft(10, 80); */
-
-module handle_1(handle_size) {
-
-  offset = handle_size /2;
-
-  difference() {
-    cube([handle_size,handle_size,handle_size], center=true);
-    union() {
-      // corners
-      translate([-offset,-offset,0]) cylinder(h=40, d=8, center=true);
-      translate([offset,-offset,0]) cylinder(h=40, d=8, center=true);
-      translate([-offset,offset,0]) cylinder(h=40, d=8, center=true);
-      translate([offset,offset,0]) cylinder(h=40, d=8, center=true);
-
-      // sides
-      translate([-offset*2.2,0,0]) cylinder(h=40, d=handle_size*1.5, center=true);
-      translate([0,-offset*2.2,,0]) cylinder(h=40, d=handle_size*1.5, center=true);
-      translate([offset*2.2,0,0]) cylinder(h=40, d=handle_size*1.5, center=true);
-      translate([0,offset*2.2,,0]) cylinder(h=40, d=handle_size*1.5, center=true);
-
-      // shaft plug
-      translate([0,0,handle_size/2-2.5]) cube([5,5,5], center=true);
-    }
-  }
-}
-
-/* handle_1(30); */
-
-module handle_2(handle_size) {
-
-  offset = handle_size /2;
-  difference() {
-    cube([handle_size,handle_size,handle_size], center=true);
-    union () {
-      translate([-offset*2.2,0,0]) rotate([90,0,0]) cylinder(h=40, d=handle_size*1.5, center=true);
-      translate([offset*2.2,0,0]) rotate([90,0,0]) cylinder(h=40, d=handle_size*1.5, center=true);
-      translate([0,offset*2.2,0]) rotate([90,0,90]) cylinder(h=40, d=handle_size*1.5, center=true);
-      translate([0,-offset*2.2,0]) rotate([90,0,90]) cylinder(h=40, d=handle_size*1.5, center=true);
-      // shaft plug
-      translate([0,0,handle_size/2-2.5]) cube([5,5,5], center=true);
-    }
-  }
-}
-/* handle_2(25); */
-
-
-module rotate_handle(long, larg, grip) {
-  difference () {
-    union () {
-      cylinder(h=long,d=larg, center=true);
-      for (i=[0:20:350]) {
-          rotate([0,0,i]) translate([0,larg/2,0]) cylinder(h=long,d=grip, center=true);
-      }
-    }
-    // shaft plug
-    translate([0,0,long/2-2.5]) cube([5,5,5], center=true);
-  }
-}
 
 module picot_male(x, y) {
     translate([x,y,-6]) {
@@ -133,10 +77,9 @@ module wheel_v1 () {
 
 // pseudo base
 /* base_as_box(120); */
-
-square(120, center=true);
+/* square(120, center=true);
 translate([15,0,0]) cylinder(h=40, d=11, center=true);
-translate([-15,0,0]) cylinder(h=40, d=11, center=true);
+translate([-15,0,0]) cylinder(h=40, d=11, center=true); */
 
 module push_pull_carriage() {
   difference () {
@@ -150,6 +93,34 @@ module push_pull_carriage() {
 }
 
 // over hole 1
-translate([15,0,0]) push_pull_carriage();
+/* translate([15,0,0]) push_pull_carriage(); */
 // over hole 2
 /* translate([-15,0,0]) push_pull_carriage(); */
+
+
+
+/* rotate ([90,0,0]) linear_extrude(height = 2, center = true)
+  polygon(points=[[0,0],[10,0],[0,10]]);
+
+linear_extrude(height = 10, center = false)
+  polygon(points=[[0,0],[10,0],[10,2], [0,2]]); */
+
+
+module rounded_corner_box() {
+  difference () {
+    minkowski() {
+      cube([10,10,2]);
+      cylinder(h=1,r=1);
+    }
+   cube([10,10,3]);
+  }
+}
+
+module another_rounded_corner_box() {
+  hull() {
+    translate([5,5,0]) cylinder(h=1, r=1);
+    translate([5,-5,0]) cylinder(h=1, r=1);
+    translate([-5,5,0]) cylinder(h=1, r=1);
+    translate([-5,-5,0]) cylinder(h=1, r=1);
+  }
+}
