@@ -2,6 +2,9 @@
 $fa=1;
 $fn=80;
 
+include <base_floor.scad>
+
+
 module rotate_handle(long, larg, attach, grip) {
     cylinder(h=long,d=larg);
 //    rotate([0,0,90]) translate([0,larg/2,0]) cylinder(h=long,d=grip);
@@ -43,53 +46,14 @@ module rotate_piece_2(base_size, main_diam, shaft_diam) {
 }
 
 
-module picot_male() {
-//    translate([3,-15,0]) rotate([0,90,0]) union() {
-//        cylinder(h=6,d=6, center=true);
-//        cylinder(h=10,d=3, center=true);
-//    }
-        cylinder(h=6,d=6, center=true);
-        cylinder(h=10,d=3, center=true);
 
-    }
-
-module picot_female (x, y) {
-    translate([x,y,-3]) difference () {
-    cylinder(h=6,d=6, center=true);
-    cylinder(h=6,d=3, center=true);
-    }
-    }
-
-module rotate_floor(base_size, base_height, corner_size) {
-
-    picot_female(10,10);
-    picot_female(110,110);
-    picot_female(110,10);
-    picot_female(10,110);
-
-    triangle_points =[[0,0],[corner_size,0],[0,corner_size]];
-    triangle_paths =[[0,1,2]];
-    translate([base_size,0,base_height]) rotate([0,-90,0]) linear_extrude(base_size) polygon(triangle_points,triangle_paths,10);
-    translate([base_size,base_size,base_height]) rotate([90,-90,0]) linear_extrude(base_size) polygon(triangle_points,triangle_paths,10);
-    translate([0,0,base_height]) rotate([-90,-90,0]) linear_extrude(base_size) polygon(triangle_points,triangle_paths,10);
-    translate([0,base_size,base_height]) rotate([180,-90,0]) linear_extrude(base_size) polygon(triangle_points,triangle_paths,10);
-
-    cube([base_size,base_size,base_height], center=false);
-
-//    difference() {
-//    // base
-//    cube([base_size,base_size,base_height], center=false);
-//    // hole
-//    translate([60,60,0]) cylinder(h=base_height,d=13, d2=13);
-//    }
-}
 
 //rotate_piece();
 difference () {
 
 union () {
 difference () {
-    translate([0,0,6]) rotate_floor(120,2,4);
+    translate([0,0,20]) base_floor(120, 4, 6, 3, 6, false);
     union () {
 
         translate([60,60,0]) rotate([0,90,0]) cylinder(h=118,d=21, center=true);
@@ -101,7 +65,7 @@ translate([60,60,0]) rotate([0,90,0])  {
 
                     cylinder(h=120,d=24, center=true);
     union() {
-                    cylinder(h=120,d=21, center=true);
+                    cylinder(h=122,d=21, center=true);
          translate([-13,0,0]) cube([10,25,25], center=true);
                 }}}
 // supports
@@ -116,11 +80,6 @@ difference () {
             }
  }
 
- // jupe
-translate([0,120,0]) rotate([0,0,-90]) cube([120,3,6]);
-cube([120,3,6]);
-translate([120,0,0]) rotate([0,0,90])  cube([120,3,6]);
- translate([0,117,0]) cube([120,3,6]);
 }
 union () {
 translate([0,0,-40]) cube([130,130,40]);
@@ -168,19 +127,6 @@ difference () {
 translate([15,0,0]) rotate([0,90,0]) cube([140,140,30], center=true);
 }
 
-// picots
-
-// males
-translate([3,-15,0]) rotate([0,90,0]) union() {
-    cylinder(h=6,d=6, center=true);
-    cylinder(h=10,d=3, center=true);
-}
-// femelle
-translate([3,15,0]) rotate([0,90,0])  difference () {
-cylinder(h=6,d=6, center=true);
-cylinder(h=6,d=3, center=true);
-}
-
 translate([3,50,50]) rotate([0,90,0]) cylinder(h=6,d=6, center=true);
 translate([3,50,-50]) rotate([0,90,0]) cylinder(h=6,d=6, center=true);
 translate([3,-50,50]) rotate([0,90,0]) cylinder(h=6,d=6, center=true);
@@ -193,15 +139,6 @@ cylinder(h=6,d=3, center=true);
 
 
 }
-//rotate_piece_2(120, 20, 6);
-
-
-//translate([0,0,-2]) rotate_floor(120, 4, 5);
-
-
-//rotate([0,90,0]) rotate_handle(25, 25, 5, 3);
-
-//translate([60,60,-10]) rotate_piece();
 
 
 
@@ -213,5 +150,3 @@ translate([0,0,2]) cylinder(h=base_size,d=main_diam+1, center=true);
 }
 
 }
-//translate([25,60,-0]) rotate([0,90,0])  rotate_floor_tube(50, 20);
-//translate([95,60,-0]) rotate([0,-90,0])  rotate_floor_tube(50, 20);

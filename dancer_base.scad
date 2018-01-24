@@ -8,6 +8,11 @@ module torus(ext_radius, inner_radius) {
 }
 
 difference() {
-  cylinder(h=10, d=100);
-  translate([0, 0, 10]) torus(40,2);
+  difference() {
+    cylinder(h=10, d=100);
+    translate([0, 0, 10]) torus(40,2);
+  }
+
+  translate([0, 0, 5]) cube([5,5,10], center=true);
+
 }

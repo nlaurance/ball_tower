@@ -12,7 +12,7 @@ module picot_female (x, y) {
     }
     }
 
-module rotate_floor(base_size, base_height, corner_size,
+module base_floor(base_size, base_height, corner_size,
                     skirt_wall, skirt_height, male_picot=true) {
 
 translate([0,0,6]) union () {
@@ -46,4 +46,4 @@ translate([0,0,6]) union () {
 
 }
 
-rotate_floor(120, 4, 6, 3, 6);
+/*base_floor(120, 4, 6, 3, 6, false);*/
