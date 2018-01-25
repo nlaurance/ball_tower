@@ -1,9 +1,10 @@
-$fn=40;
+$fn=80;
 
 module right_left_handle(handle_size) {
 
   offset = handle_size /2;
 
+minkowski() {
   difference() {
     cube([handle_size,handle_size,handle_size], center=true);
     union() {
@@ -20,9 +21,11 @@ module right_left_handle(handle_size) {
       translate([0,offset*2.2,,0]) cylinder(h=40, d=handle_size*1.5, center=true);
 
       // shaft plug
-      translate([0,0,handle_size/2-2.5]) cube([5,5,5], center=true);
+      /* translate([0,0,handle_size/2-2.5]) cube([5,5,5], center=true); */
     }
   }
+  sphere(1);
+}
 }
 
 module push_pull_handle(handle_size) {
@@ -59,6 +62,6 @@ module rotate_handle(long, larg, grip) {
   }
 }
 
-/* translate([30,0,0]) right_left_handle(25); */
-translate([-30,0,0]) push_pull_handle(25);
+translate([30,0,0]) right_left_handle(25);
+/* translate([-30,0,0]) push_pull_handle(25); */
 /* translate([0,30,0]) rotate_handle(25, 25, 3); */
