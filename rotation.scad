@@ -32,61 +32,16 @@ module rotate_piece() {
 
 module rotate_piece_2(base_size, main_diam, shaft_diam) {
     difference() {
-    union() {
-    // shaft
-    cylinder(h=base_size,d=shaft_diam, center=true);
-    translate([0,0,base_size/2]) cube([4,4,8], center=true);
     // ball catch
     cylinder(h=20,d=main_diam, center=true);
-    }
-
-    translate([-main_diam/4,0,0]) rotate([0,90,0]) cylinder(h=main_diam/2,d=13, d2=11,center=true);
+    translate([main_diam/4,0,0]) rotate([0,90,0])
+    cylinder(h=main_diam/2,d=11, d2=13,center=true);
     sphere(d=11);
+  }
 }
-}
-
-
 
 
 //rotate_piece();
-difference () {
-
-union () {
-difference () {
-    translate([0,0,20]) base_floor(120, 4, 6, 3, 6, false);
-    union () {
-
-        translate([60,60,0]) rotate([0,90,0]) cylinder(h=118,d=21, center=true);
-    }}
-
-translate([60,60,0]) rotate([0,90,0])  {
-
-    difference() {
-
-                    cylinder(h=120,d=24, center=true);
-    union() {
-                    cylinder(h=122,d=21, center=true);
-         translate([-13,0,0]) cube([10,25,25], center=true);
-                }}}
-// supports
-translate([60,60,0]) rotate([0,90,0]) {
-    difference() {
-    translate([0,0,50]) cylinder(h=2,d=21, center=true);
-    cylinder(h=120,d=10, center=true);
-}
-difference () {
-                translate([0,0,-50]) cylinder(h=2,d=21, center=true);
-                cylinder(h=120,d=10, center=true);
-            }
- }
-
-}
-union () {
-translate([0,0,-40]) cube([130,130,40]);
-translate([120,60,0]) rotate([0,90,0]) cylinder(h=60,d=10, center=true);
-
-}
-}
 
 module attempt_2 () {
 difference () {
@@ -149,4 +104,62 @@ cylinder(h=base_size,d=main_diam+3, center=true);
 translate([0,0,2]) cylinder(h=base_size,d=main_diam+1, center=true);
 }
 
+}
+
+
+module what() {
+  difference () {
+
+    union () {
+      difference () {
+        translate([0,0,0]) base_floor(120, 4, 6, 3, 6, false);
+        union () {
+          translate([60,60,0]) rotate([0,90,0]) cylinder(h=118,d=21, center=true);
+          }
+        }
+
+      // tunnel roof, could be replaced by a tube call
+      translate([60,60,0]) rotate([0,90,0])  {
+        difference() {
+          cylinder(h=120,d=24, center=true);
+          union() {
+            cylinder(h=122,d=21, center=true);
+            // opening in roof
+            translate([-13,0,0]) cube([10,25,25], center=true);
+            }
+          }
+        }
+
+      // supports
+      translate([60,60,0]) rotate([0,90,0]) {
+        difference() {
+          translate([0,0,14]) cylinder(h=2,d=21, center=true);
+          cylinder(h=120,d=10, center=true);
+        }
+        difference () {
+          translate([0,0,-14]) cylinder(h=2,d=21, center=true);
+          cylinder(h=120,d=10, center=true);
+          }
+        difference () {
+          translate([0,0,58]) cylinder(h=2,d=21, center=true);
+          cylinder(h=120,d=10, center=true);
+          }
+        difference () {
+          translate([0,0,-58]) cylinder(h=2,d=21, center=true);
+          cylinder(h=120,d=10, center=true);
+          }
+      }
+  }
+  union () {
+    // cut in half
+    translate([0,0,-40]) cube([130,130,40]);
+    // hole for shaft in base skirt
+    translate([120,60,0]) rotate([0,90,0]) cylinder(h=60,d=10, center=true);
+    }
+  }
+}
+/*what();*/
+difference () {
+color(yellow, 0.75) rotate_piece_2(20,25,10);
+translate([15,0,0]) cube([10,25,25], center=true);
 }
