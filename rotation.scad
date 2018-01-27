@@ -4,7 +4,7 @@ $fn=80;
 
 include <base_floor.scad>
 include <dimensions.scad>
-
+use <handles.scad>
 
 module rotate_piece(base_size, main_diam, shaft_diam) {
   difference() {
@@ -77,6 +77,11 @@ module rotate_floor() {
     }
 }
 
-/*color(gg, 0.5)*/
 rotate_floor();
-color([1,0,0]) translate([60,60,0]) rotate([0,-90,0])  rotate_piece(20,23,10);
+translate([60,60,0]) rotate([0,-90,0])  rotate_piece(20,23,10);
+translate([133,60,0]) rotate([0,-90,0]) rotate_handle(25, 25, 3);
+// shaft
+translate([130,60,0]) rotate([0,-90,0]) cylinder(h=130,d=10);
+
+
+translate([0,120,0]) rotate([0,180,180]) rotate_floor();

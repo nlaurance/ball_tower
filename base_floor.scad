@@ -16,7 +16,7 @@ module base_floor(base_size, base_height, corner_size,
                     skirt_wall, skirt_height, male_picot=true) {
 
   translate([0,0,6]) union () {
-    if (male_picot) {
+    /*if (male_picot) {
       picot_male(10,10);
       picot_male(110,110);
       picot_male(110,10);
@@ -27,7 +27,11 @@ module base_floor(base_size, base_height, corner_size,
       picot_female(110,110);
       picot_female(110,10);
       picot_female(10,110);
-    }
+    }*/
+      picot_male(10,10);
+      picot_male(110,110);
+      picot_female(110,10);
+      picot_female(10,110);
 
     // top border
     triangle_points =[[0,0],[corner_size,0],[0,corner_size]];
