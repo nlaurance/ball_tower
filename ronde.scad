@@ -49,4 +49,14 @@ translate([40,0,0]) rotate([0,0,0]) arc();
 translate([-40,0,0]) rotate([0,180,0]) arc();
 }*/
 
-scale([1.5,1,3]) sphere(10);
+module smooth(size, r) {
+  ratio = size / (size+2*r);
+  scale([ratio,ratio,ratio])
+  minkowski() {
+    cube(size, center=true);
+    sphere(r);
+}
+}
+
+translate([10,0,0])  cube(10, center=true);
+smooth(10,2);
