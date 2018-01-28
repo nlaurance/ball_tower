@@ -75,11 +75,13 @@ module wheel_v1 () {
   translate([15,0,-8]) tube(4,8,5);
 }
 
+wheel_v1();
+
 // pseudo base
-/* base_as_box(120); */
-/* square(120, center=true);
+ /*base_as_box(120);
+ square(120, center=true);
 translate([15,0,0]) cylinder(h=40, d=11, center=true);
-translate([-15,0,0]) cylinder(h=40, d=11, center=true); */
+translate([-15,0,0]) cylinder(h=40, d=11, center=true);*/
 
 module push_pull_carriage() {
   difference () {
@@ -93,9 +95,9 @@ module push_pull_carriage() {
 }
 
 // over hole 1
-/* translate([15,0,0]) push_pull_carriage(); */
+ /*translate([15,0,0]) push_pull_carriage();*/
 // over hole 2
-/* translate([-15,0,0]) push_pull_carriage(); */
+ /*translate([-15,0,0]) push_pull_carriage();*/
 
 
 

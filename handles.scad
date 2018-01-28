@@ -49,7 +49,7 @@ module push_pull_handle(handle_size) {
   }
 }
 
-module rotate_handle(long, larg, grip) {
+module rotate_handle(long, larg, grip, plug=true) {
   difference () {
     union () {
       cylinder(h=long,d=larg, center=true);
@@ -57,8 +57,10 @@ module rotate_handle(long, larg, grip) {
           rotate([0,0,i]) translate([0,larg/2,0]) cylinder(h=long,d=grip, center=true);
       }
     }
-    // shaft plug
-    translate([0,0,long/2-2.5]) cube([5,5,5], center=true);
+    if (plug) {
+      // shaft plug
+      translate([0,0,long/2-2.5]) cube([5,5,5], center=true);
+    }
   }
 }
 
