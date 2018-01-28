@@ -2,6 +2,7 @@ $fa=1;
 $fn=40;
 
 use <handles.scad>
+use <shapes.scad>
 
 module shaft(width, length) {
   offset = width / 2;
@@ -25,12 +26,6 @@ module picot_male(x, y) {
       }
     }
 
-module tube(height, outer, inner) {
-  difference() {
-    cylinder(h=height, d=outer, center=true);
-    cylinder(h=height, d=inner, center=true);
-  }
-}
 
 module base_as_box(size) {
   difference () {
