@@ -1,37 +1,45 @@
-module picot_male(x, y) {
-    translate([x,y,-6]) {
-        cylinder(h=6,d=6);
-        translate([0,0,-4]) cylinder(h=4,d=3);
-      }
-    }
+use <shapes.scad>
+use <dimensions.scad>
 
-module picot_female (x, y) {
-    translate([x,y,-3]) difference () {
-    cylinder(h=6,d=6, center=true);
-    cylinder(h=6,d=3, center=true);
-    }
-    }
+base_size = 120;
+base_floor_thickness = 4;
+base_end_floor_thickness = 5;
+base_skirt_thickness = 5;
+base_skirt_height = 6;
+base_border_thickness = 3;
+
+/*base_floor(120, 4, 6, 3, 6, false);*/
+
+base_floor_v2();
+
+module base_floor_v2() {
+  difference() {
+  // floor
+  cube([base_size,
+        base_size,
+        base_floor_thickness+base_skirt_height], center=true);
+  // carve skirt
+  translate([0,0,-base_skirt_height/2])
+  cube([base_size-base_skirt_thickness,
+        base_size-base_skirt_thickness,
+        base_skirt_height], center=true);
+  }
+  picot_male(10,10);
+  picot_male(base_size-10,base_size-10);
+  picot_female(base_size-10,10);
+  picot_female(10,base_size-10);
+
+}
 
 module base_floor(base_size, base_height, corner_size,
                     skirt_wall, skirt_height, male_picot=true) {
 
   translate([0,0,6]) union () {
-    /*if (male_picot) {
-      picot_male(10,10);
-      picot_male(110,110);
-      picot_male(110,10);
-      picot_male(10,110);
-    }
-    else {
-      picot_female(10,10);
-      picot_female(110,110);
-      picot_female(110,10);
-      picot_female(10,110);
-    }*/
-      picot_male(10,10);
-      picot_male(110,110);
-      picot_female(110,10);
-      picot_female(10,110);
+
+    picot_male(10,10);
+    picot_male(base_size-10,base_size-10);
+    picot_female(base_size-10,10);
+    picot_female(10,base_size-10);
 
     // top border
     triangle_points =[[0,0],[corner_size,0],[0,corner_size]];
@@ -51,5 +59,3 @@ module base_floor(base_size, base_height, corner_size,
     translate([0,base_size-skirt_wall,0]) cube([base_size,skirt_wall,skirt_height]);
 
 }
-
-/*base_floor(120, 4, 6, 3, 6, false);*/
