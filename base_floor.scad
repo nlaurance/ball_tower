@@ -12,6 +12,7 @@ base_border_thickness = 3;
 
 base_floor_v2();
 
+
 module base_floor_v2() {
   difference() {
   // floor
@@ -24,11 +25,29 @@ module base_floor_v2() {
         base_size-base_skirt_thickness,
         base_skirt_height], center=true);
   }
-  picot_male(10,10);
-  picot_male(base_size-10,base_size-10);
-  picot_female(base_size-10,10);
-  picot_female(10,base_size-10);
+  // attachments
+  picot_male(base_size/2-10,base_size/2-10);
+  picot_male(-base_size/2+10,-base_size/2+10);
+  picot_female(base_size/2-10,-base_size/2+10);
+  picot_female(-base_size/2+10,base_size/2-10);
 
+  // top border
+  triangle_points =[[0,0],[base_border_thickness,0],[0,base_border_thickness]];
+  triangle_paths =[[0,1,2]];
+
+  translate([0,0,(base_floor_thickness+base_skirt_height)/2]) {
+    translate([base_size/2,-base_size/2,0]) rotate([0,-90,0])
+    linear_extrude(base_size) polygon(triangle_points,triangle_paths,10);
+
+    translate([base_size/2,base_size/2,0]) rotate([90,-90,0])
+    linear_extrude(base_size) polygon(triangle_points,triangle_paths,10);
+
+    translate([-base_size/2,-base_size/2,0]) rotate([-90,-90,0])
+    linear_extrude(base_size) polygon(triangle_points,triangle_paths,10);
+
+    translate([-base_size/2,base_size/2,0]) rotate([180,-90,0])
+    linear_extrude(base_size) polygon(triangle_points,triangle_paths,10);
+  }
 }
 
 module base_floor(base_size, base_height, corner_size,
