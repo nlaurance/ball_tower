@@ -19,7 +19,7 @@ scad.Translate(y=-15)()
 
 hauteur= 20
 
-from ball_tower.gauss import prepare_bezier_poly
+from ball_tower.bezier import prepare_bezier_poly
 path = [
     ((-10, 0), 0),
     ((-5, 15), 15),
